@@ -3,7 +3,11 @@ require 'spec_helper'
 describe PagesController do
 	render_views
 
-	pages = {"home" => "Home", "contact" => "Contact", "about" => "About"}
+	pages = {"home" => "Home", "contact" => "Contact", "about" => "About", "help" => "Help"}
+
+	before(:each) do
+		@base_title = "Ruby on Rails Tutorial Sample App"
+	end
 
 	pages.each_pair do |key,val|
 		describe "GET '#{key}'" do
@@ -15,7 +19,7 @@ describe PagesController do
 			it "should have the right title" do
 				get "#{key}"
 				response.should have_selector("title",
-					  :content => "Ruby on Rails Tutorial Sample App | #{val}")
+					  :content => @base_title + " | #{val}")
 			end
 		end
 	end
